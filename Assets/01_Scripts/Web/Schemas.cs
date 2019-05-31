@@ -20,7 +20,7 @@ namespace Zoo.Web
     {
         public ObjectId _id;
 
-        public User user { set; get; }
+        public string username { set; get; }
         public string name { set; get; }
         public int indexHead { set; get; }
         public Color skin { set; get; }

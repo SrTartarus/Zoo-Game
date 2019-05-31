@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using UnityEngine;
 
 namespace Zoo.Web
 {
@@ -137,6 +138,32 @@ namespace Zoo.Web
             {
                 IMongoCollection<T> mongoCollection = db.GetCollection<T>(collection);
                 FilterDefinition<T> filter = FilterDefinition<T>.Empty;
+                List<T> newList = new List<T>();
+                using (IAsyncCursor<T> cursor = await mongoCollection.FindAsync(filter))
+                {
+                    while (await cursor.MoveNextAsync())
+                    {
+                        IEnumerable<T> batch = cursor.Current;
+                        foreach (T document in batch)
+                        {
+                            newList.Add(document);
+                        }
+                    }
+                }
+
+                callback(true, newList);
+            }
+            catch (MongoException e)
+            {
+                callback(false, new List<T>());
+            }
+        }
+
+        public async void SelectAll<T>(string collection, FilterDefinition<T> filter, Action<bool, List<T>> callback)
+        {
+            try
+            {
+                IMongoCollection<T> mongoCollection = db.GetCollection<T>(collection);
                 List<T> newList = new List<T>();
                 using (IAsyncCursor<T> cursor = await mongoCollection.FindAsync(filter))
                 {

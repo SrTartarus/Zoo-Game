@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using MongoDB.Driver;
@@ -133,8 +134,8 @@ namespace Zoo.Lobby
                 login.Find("username").GetChild(0).GetComponent<InputField>().text = "";
                 login.Find("password").GetChild(0).GetComponent<InputField>().text = "";
 
-                FilterDefinition<Character> filter = Builders<Character>.Filter.Eq("user", user);
-                WebManager.singleton.db.Select<Character>("rpg_characters", filter, OnCharacter);
+                FilterDefinition<Character> filter = Builders<Character>.Filter.Eq("username", user.username);
+                WebManager.singleton.db.SelectAll<Character>("rpg_characters", filter, OnCharacter);
             }
             else
             {
@@ -145,20 +146,26 @@ namespace Zoo.Lobby
             }
         }
 
-        private void OnCharacter(bool success, Character character)
+        private void OnCharacter(bool success, List<Character> characters)
         {
             gameObject.SetActive(false);
 
             if(success)
             {
-                Debug.Log("Opened selecter");
-                player.SetActive(true);
+                if(characters.Count <= 0)
+                {
+                    customization.SetActive(true);
+                    dynamicCanvas.SetActive(true);
+                }
+                else
+                {
+                    player.SetActive(true);
+                    player.GetComponent<Selecter>().characters = characters;
+                }
             }
             else
             {
-                Debug.Log("Opened customization");
-                customization.SetActive(true);
-                dynamicCanvas.SetActive(true);
+                Debug.Log("Somenthing wrong!!");
             }
         }
 

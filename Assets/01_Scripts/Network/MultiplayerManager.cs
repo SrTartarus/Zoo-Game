@@ -9,6 +9,7 @@ namespace Zoo.Network
     public class MultiplayerManager : NetworkManager
     {
         public static User user = null;
+        public static Character character = null;
         public static Server server = null;
 
         // Use this for initialization
