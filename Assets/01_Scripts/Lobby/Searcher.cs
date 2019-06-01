@@ -71,6 +71,24 @@ namespace Zoo.Lobby
             }
         }
 
+        public void Refresh()
+        {
+            if (bSearching)
+                return;
+
+            foreach (Transform child in serverContainer)
+            {
+                Destroy(child.gameObject);
+            }
+
+            bSearching = true;
+
+            if (!onlineBtn.interactable)
+                WebManager.singleton.db.SelectAll<Server>("rpg_servers", OnRefresh);
+            else
+                LanManager.singleton.Search(true, OnRefresh);
+        }
+
         private void OnRefresh(bool success, List<Server> servers)
         {
             if (success)
@@ -78,6 +96,7 @@ namespace Zoo.Lobby
                 foreach (Server server in servers)
                 {
                     GameObject go = Instantiate(serverUI, serverContainer);
+                    go.name = server._id.ToString();
                     NetworkJoin join = go.GetComponent<NetworkJoin>();
                     join.server = server;
                 }
