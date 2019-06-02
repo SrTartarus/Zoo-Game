@@ -2,6 +2,7 @@
 using UnityEngine.Networking;
 using UnityEngine.AI;
 using Zoo.Core;
+using Zoo.Enemy;
 
 namespace Zoo.Player
 {
@@ -33,7 +34,7 @@ namespace Zoo.Player
 
             UpdateAnimator();
 
-            //if (InteractWithCombat()) return;
+            if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
         }
 
@@ -46,7 +47,7 @@ namespace Zoo.Player
                 {
                     if (hit.collider != null && hit.transform.name == "terrain")
                     {
-                        //GetComponent<Fighter>().Cancel();
+                        GetComponent<Fighter>().Cancel();
                         MoveTo(hit.point);
                         return true;
                     }
@@ -56,7 +57,6 @@ namespace Zoo.Player
             return false;
         }
 
-        /*
         private bool InteractWithCombat()
         {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
@@ -74,7 +74,6 @@ namespace Zoo.Player
 
             return false;
         }
-        */
 
         public void MoveTo(Vector3 position)
         {

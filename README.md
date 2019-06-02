@@ -8,7 +8,7 @@ The project is using a number of technologies: UNet, MongoDB, Native Sockets.
 ## Status and prerequisites
 Current status:
 ```
-Unity version: 2019.1.1f1
+Unity version: 2018.2.4f1
 Platforms    : Windows, MacOS and Android
 ```
 
@@ -22,7 +22,6 @@ Platforms    : Windows, MacOS and Android
 2. Run this code in your terminal `git  lfs install`.
 3. Run this code in your terminal to download the repository: `git lfs clone git@github.com:SrTartarus/Zoo-Game.git`.
 4. Open the project.
-5. You need install TextMesh Pro before you open one scene.
 
 ## Credits
 Abisaid Fernandez de Lara - Modular Character Asset: https://www.artstation.com/artwork/yzw2O
