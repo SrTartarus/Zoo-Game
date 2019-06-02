@@ -25,11 +25,11 @@ namespace Zoo.Player
             {
                 GetComponent<CapsuleCollider>().isTrigger = true;
                 Destroy(GetComponent<NavMeshAgent>());
-                //Destroy(GetComponent<Fighter>());
                 Setup(player);
             }
             else
             {
+                transform.Find("name").gameObject.SetActive(false);
                 playerStruct player = new playerStruct();
                 player.indexHead = MultiplayerManager.character.indexHead;
                 Web.Character.Color skin = MultiplayerManager.character.skin;

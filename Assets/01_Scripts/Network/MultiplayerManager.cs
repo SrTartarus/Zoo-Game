@@ -4,6 +4,7 @@ using UnityEngine.Networking.Match;
 using MongoDB.Driver;
 using Zoo.Web;
 using Zoo.Lobby;
+using Zoo.Core;
 
 namespace Zoo.Network
 {
@@ -46,7 +47,7 @@ namespace Zoo.Network
 
         private void OnClientChat(NetworkMessage netMsg)
         {
-
+            FindObjectOfType<Chat>().MessageReceived(netMsg);
         }
 
         public override void OnServerConnect(NetworkConnection conn)
