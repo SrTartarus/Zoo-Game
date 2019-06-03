@@ -89,8 +89,8 @@ namespace Zoo.Network
         {
             if(!bOnline)
             {
-                singleton.networkAddress = server.address;
-                singleton.networkPort = server.port;
+                singleton.networkAddress = localServer.address;
+                singleton.networkPort = localServer.port;
                 singleton.StartClient();
             }
             else

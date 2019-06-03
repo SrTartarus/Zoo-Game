@@ -58,6 +58,16 @@ namespace Zoo.Core
 
             return hex;
         }
+
+        public static float Denormalize(float normalize, float max, float min)
+        {
+            return normalize * (max - min) + min;
+        }
+
+        public static float Normalize(float value, float max, float min)
+        {
+            return (value - min) / (max - min);
+        }
     }
 }
 

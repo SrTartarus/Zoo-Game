@@ -25,7 +25,7 @@ namespace Zoo.Player
             {
                 GetComponent<CapsuleCollider>().isTrigger = true;
                 Destroy(GetComponent<NavMeshAgent>());
-                Destroy(GetComponent<Fighter>());
+                //Destroy(GetComponent<Fighter>());
                 Setup(player);
             }
             else

@@ -10,7 +10,7 @@ namespace Zoo.Enemy
         [SerializeField] private GameObject enemyPrefab;
         private List<GameObject> spots = new List<GameObject>();
 
-        private int numberOfEnemies = 3;
+        private int numberOfEnemies = 1;
 
         public override void OnStartServer()
         {

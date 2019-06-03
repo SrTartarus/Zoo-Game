@@ -26,13 +26,22 @@ namespace Zoo.Player
 
             if (target != null)
             {
-                bool bRange = Vector3.Distance(transform.position, target.position) < weaponRange;
-
-                if (!bRange)
+                if (!IsInRange())
+                {
                     GetComponent<PlayerController>().MoveTo(target.position);
+                }
                 else
+                {
                     GetComponent<PlayerController>().Stop();
+                    GetComponent<NetworkAnimator>().SetTrigger("attack");
+                    transform.LookAt(target);
+                }
             }
+        }
+
+        private bool IsInRange()
+        {
+            return Vector3.Distance(transform.position, target.position) < weaponRange;
         }
 
         public void Attack(EnemyController enemy)
@@ -43,9 +52,19 @@ namespace Zoo.Player
             target = enemy.transform;
         }
 
+        // Animation event
+        void Hit()
+        {
+            if (target == null || !isLocalPlayer)
+                return;
+
+            target.GetComponent<EnemyController>().CmdReduceLife();
+        }
+
         public void Cancel()
         {
             target = null;
+            GetComponent<Animator>().Play("Locomotion");
         }
     }
 }
