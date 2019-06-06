@@ -10,24 +10,42 @@ namespace Zoo.Enemy
         [SerializeField] private GameObject enemyPrefab;
         private List<GameObject> spots = new List<GameObject>();
 
-        private int numberOfEnemies = 1;
+        public int numberOfEnemies = 3;
+        private float time;
 
-        public override void OnStartServer()
+        void Start()
         {
+            if (!isServer)
+                return;
+
             int length = transform.childCount;
             for (int i = 0; i < length; i++)
             {
                 spots.Add(transform.GetChild(i).gameObject);
             }
 
-            for (int i = 0; i < numberOfEnemies; i++)
+            time = Random.Range(3, 6);
+        }
+
+        void Update()
+        {
+            if (!isServer)
+                return;
+
+            if(numberOfEnemies > 0)
             {
-                SpawnEnemies();
+                time -= Time.deltaTime;
+                if(time <= 0f)
+                {
+                    time = Random.Range(3, 6);
+                    SpawnEnemy();
+                }
             }
         }
 
-        void SpawnEnemies()
+        void SpawnEnemy()
         {
+            numberOfEnemies -= 1;
             int randomInt = Random.Range(0, transform.childCount);
             GameObject go = GameObject.Instantiate(enemyPrefab);
             go.GetComponent<UnityEngine.AI.NavMeshAgent>().Warp(spots[randomInt].transform.position);

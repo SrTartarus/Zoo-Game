@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
 using Zoo.Enemy;
@@ -11,6 +10,9 @@ namespace Zoo.Player
         [SerializeField] float weaponRange = 2f;
 
         Transform target;
+
+        [SyncVar]
+        private NetworkInstanceId targetName = new NetworkInstanceId();
 
         // Use this for initialization
         void Start()
@@ -46,24 +48,37 @@ namespace Zoo.Player
 
         public void Attack(EnemyController enemy)
         {
-            if (!isLocalPlayer)
-                return;
-
             target = enemy.transform;
+            CmdAttack(enemy.GetComponent<NetworkIdentity>().netId);
+        }
+
+        [Command]
+        void CmdAttack(NetworkInstanceId enemy)
+        {
+            targetName = enemy;
         }
 
         // Animation event
         void Hit()
         {
-            if (target == null || !isLocalPlayer)
+            if (targetName.ToString() == "0" || !isServer)
                 return;
 
-            target.GetComponent<EnemyController>().CmdReduceLife();
+            try
+            {
+                NetworkServer.FindLocalObject(targetName).GetComponent<EnemyController>().TakeDamage(UnityEngine.Random.Range(5, 20));
+            }
+            catch(Exception e)
+            {
+                targetName = new NetworkInstanceId();
+                Debug.Log(e.Message);
+            }
         }
 
         public void Cancel()
         {
             target = null;
+            CmdAttack(new NetworkInstanceId());
             GetComponent<Animator>().Play("Locomotion");
         }
     }

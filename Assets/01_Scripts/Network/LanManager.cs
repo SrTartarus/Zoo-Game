@@ -23,7 +23,7 @@ namespace Zoo.Network
         private State state = new State();
         private IPEndPoint remoteEndpoint = new IPEndPoint(IPAddress.Any, 0);
         private AsyncCallback recv = null;
-        private UdpClient socket;
+        private UdpClient socket = new UdpClient();
 
         public class State
         {

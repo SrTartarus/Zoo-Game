@@ -99,9 +99,9 @@ NavMeshSettings:
     serializedVersion: 2
     agentTypeID: 0
     agentRadius: 0.5
-    agentHeight: 2
-    agentSlope: 50
-    agentClimb: 0.4
+    agentHeight: 3
+    agentSlope: 42.1
+    agentClimb: 0.5
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -1763,7 +1763,7 @@ TerrainCollider:
   m_GameObject: {fileID: 895836339}
   m_Material: {fileID: 0}
   m_Enabled: 1
-  m_TerrainData: {fileID: 15600000, guid: 544a9e284be0e3044aae41633308ddfa, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 90991e63dcca0ad47833c1d2ee9b588b, type: 2}
   m_EnableTreeColliders: 1
 --- !u!218 &895836341
 Terrain:
@@ -1773,7 +1773,7 @@ Terrain:
   m_GameObject: {fileID: 895836339}
   m_Enabled: 1
   serializedVersion: 3
-  m_TerrainData: {fileID: 15600000, guid: 544a9e284be0e3044aae41633308ddfa, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 90991e63dcca0ad47833c1d2ee9b588b, type: 2}
   m_TreeDistance: 2000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5

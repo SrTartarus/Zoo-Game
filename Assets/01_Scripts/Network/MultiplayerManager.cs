@@ -17,16 +17,43 @@ namespace Zoo.Network
         public static bool bMatchMaker = false;
         public static bool bServer = false;
 
-        // Use this for initialization
-        void Start()
-        {
-
-        }
+        private float timeToken = 0f;
 
         // Update is called once per frame
         void Update()
         {
+            if (Time.frameCount % 30 == 0)
+            {
+                System.GC.Collect();
+            }
 
+            if (user != null)
+            {
+                timeToken += Time.deltaTime;
+                if (timeToken >= 15f)
+                {
+                    timeToken = 0f;
+                    FilterDefinition<User> filterOr = Builders<User>.Filter.Or(Builders<User>.Filter.Eq("email", user.email), Builders<User>.Filter.Eq("username", user.username));
+                    FilterDefinition<User> filter = Builders<User>.Filter.And(filterOr, Builders<User>.Filter.Eq("password", user.password));
+                    WebManager.singleton.db.Select<User>("rpg_users", filter, CheckToken);
+                }
+            }
+        }
+
+        // Check Token
+        private void CheckToken(bool success, User localUser)
+        {
+            if (success)
+            {
+                if (user.token != localUser.token)
+                {
+                    Stop();
+                }
+            }
+            else
+            {
+                Debug.Log("Somenthing wrong!!");
+            }
         }
 
         public override void OnStartServer()
@@ -62,6 +89,11 @@ namespace Zoo.Network
 
         public override void OnServerDisconnect(NetworkConnection conn)
         {
+            foreach (NetworkInstanceId objId in conn.clientOwnedObjects)
+            {
+                NetworkServer.Destroy(GameObject.Find(objId.ToString()));
+            }
+
             if (bMatchMaker)
             {
                 UpdateDefinition<Server> update = Builders<Server>.Update
@@ -147,7 +179,7 @@ namespace Zoo.Network
             Stop();
         }
 
-        private static void Stop()
+        private void Stop()
         {
             if(singleton.IsClientConnected())
             {
@@ -170,6 +202,15 @@ namespace Zoo.Network
                 user = null;
                 server = null;
                 character = null;
+                timeToken = 0f;
+            }
+            else
+            {
+                user = null;
+                server = null;
+                character = null;
+                timeToken = 0f;
+                UnityEngine.SceneManagement.SceneManager.LoadScene(0);
             }
         }
     }

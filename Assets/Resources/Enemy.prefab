@@ -275,9 +275,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4883763723556542}
   - component: {fileID: 95138285815513668}
+  - component: {fileID: 114943966723395646}
   - component: {fileID: 136328511417565396}
   - component: {fileID: 195980947689959834}
-  - component: {fileID: 114943966723395646}
   - component: {fileID: 114315361089366836}
   - component: {fileID: 114726071750087432}
   - component: {fileID: 114667127888565064}
@@ -1674,7 +1674,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponRange: 2
-  text: {fileID: 102119437330411184}
 --- !u!114 &114726071750087432
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1721,7 +1720,7 @@ MonoBehaviour:
     i14: 137
     i15: 131
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!136 &136328511417565396
 CapsuleCollider:
   m_ObjectHideFlags: 1

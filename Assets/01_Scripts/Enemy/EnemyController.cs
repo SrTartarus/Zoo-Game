@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.AI;
 using Zoo.Core;
@@ -16,10 +14,8 @@ namespace Zoo.Enemy
         private float radius = 10f;
         public float weaponRange = 2f;
 
-        [SerializeField] TextMesh text;
-
         [SyncVar]
-        private float life = 100f;
+        private int health = 100;
 
         // Use this for initialization
         void Start()
@@ -94,45 +90,15 @@ namespace Zoo.Enemy
             GetComponent<Animator>().SetFloat("speed", localVelocity.z);
         }
 
-        [Command]
-        public void CmdReduceLife()
+        public void TakeDamage(int amount)
         {
-            int randomDamage = Random.Range(5, 15);
-            life -= randomDamage;
-            life = Mathf.Clamp(life, 0, 100);
-
-            if (life <= 0f)
-                NetworkServer.Destroy(this.gameObject);
-            else
-                RpcReduceLife(randomDamage.ToString());
-        }
-
-        [ClientRpc]
-        private void RpcReduceLife(string damage)
-        {
-            text.text = damage;
-            StartCoroutine(DamageAnimation(0.2f));
-        }
-
-        private IEnumerator DamageAnimation(float time)
-        {
-            float deltaTime = 0f;
-            Transform parent = text.transform.parent;
-            parent.gameObject.SetActive(true);
-            while(deltaTime <= time)
+            health -= amount;
+            health = Mathf.Clamp(health, 0, 100);
+            if(health <= 0)
             {
-                deltaTime += Time.deltaTime;
-                float normalize = deltaTime / time;
-                float alpha = Zoo.Core.Utility.Denormalize(normalize, 1, 0);
-                float position = Zoo.Core.Utility.Denormalize(normalize, 0, -1.3f);
-                parent.localPosition = new Vector3(0, position, 0);
-                text.color = new Color(1, 1, 1, alpha);
-                yield return null;
+                NetworkServer.Destroy(this.gameObject);
+                FindObjectOfType<EnemySpawner>().numberOfEnemies += 1;
             }
-
-            parent.gameObject.SetActive(false);
-            parent.localPosition = new Vector3(0, -1.3f, 0);
-            text.color = new Color(1, 1, 1, 0);
         }
 
         private void OnMouseOver()
