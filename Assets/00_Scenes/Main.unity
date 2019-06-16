@@ -2486,6 +2486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1343274796047268, guid: 07c342b2a6a42a94bac0bfc1505f8983,
     type: 2}
+  numberOfEnemies: 3
 --- !u!114 &1459930582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3143,8 +3144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e53cfe42d5ea964b93b21ddeacfaa8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onEnemy: {fileID: 2800000, guid: 45de4a1c8c60ef4489376d14c8a1e1f6, type: 3}
-  exitEnemy: {fileID: 2800000, guid: 2c151e1509472eb4fa1bff48a427fd3a, type: 3}
+  hoverCursor: {fileID: 2800000, guid: 45de4a1c8c60ef4489376d14c8a1e1f6, type: 3}
+  unhoverCursor: {fileID: 2800000, guid: 2c151e1509472eb4fa1bff48a427fd3a, type: 3}
 --- !u!4 &1726779859
 Transform:
   m_ObjectHideFlags: 0

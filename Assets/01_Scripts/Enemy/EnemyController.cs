@@ -103,13 +103,13 @@ namespace Zoo.Enemy
 
         private void OnMouseOver()
         {
-            Cursor.SetCursor(FindObjectOfType<GameManager>().onEnemy, Vector2.zero, CursorMode.ForceSoftware);
+            Cursor.SetCursor(FindObjectOfType<GameManager>().hoverCursor, Vector2.zero, CursorMode.ForceSoftware);
             outline.SetColor("_ASEOutlineColor", Color.red);
         }
 
         private void OnMouseExit()
         {
-            Cursor.SetCursor(FindObjectOfType<GameManager>().exitEnemy, Vector2.zero, CursorMode.ForceSoftware);
+            Cursor.SetCursor(FindObjectOfType<GameManager>().unhoverCursor, Vector2.zero, CursorMode.ForceSoftware);
             outline.SetColor("_ASEOutlineColor", Color.black);
         }
     }

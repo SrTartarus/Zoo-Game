@@ -7,7 +7,7 @@ namespace Zoo.Core
     public class GameManager : MonoBehaviour
     {
 
-        public Texture2D onEnemy, exitEnemy;
+        public Texture2D hoverCursor, unhoverCursor;
 
         // Use this for initialization
         void Start()

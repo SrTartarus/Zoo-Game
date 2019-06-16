@@ -1,7 +1,5 @@
 # Zoo Game
-This is a RPG based in Diablo´s series.
-
-This is a fully functional, Role-playing game made in Unity 3D and with full source and assets. My goals are to show Skills/Knowledge about me.
+This is a Role-playing game based in Diablo's series made it in Unity 3D and with full source and assets. My goals are to show Skills/Knowledge about me.
 
 The project is using a number of technologies: UNet, MongoDB, Native Sockets.
 
@@ -9,7 +7,7 @@ The project is using a number of technologies: UNet, MongoDB, Native Sockets.
 Current status:
 ```
 Unity version: 2018.2.4f1
-Platforms    : Windows, MacOS and Android
+Platforms    : Windows and MacOS
 ```
 
 ## Getting Started

@@ -30,12 +30,6 @@ namespace Zoo.Lobby
         [HideInInspector]
         public int connectionType = 0;
 
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
         // Update is called once per frame
         void Update()
         {

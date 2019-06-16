@@ -18,25 +18,12 @@ namespace Zoo.Web
             db = client.GetDatabase(database);
         }
 
-        /// <summary>
-        /// Insert one element
-        /// </summary>
-        /// <typeparam name="T">Type of object</typeparam>
-        /// <param name="collection">Collection to insert object</param>
-        /// <param name="document">Object to insert</param>
         public void Insert<T>(string collection, T document)
         {
             // Insert
             db.GetCollection<T>(collection).InsertOne(document);
         }
 
-        /// <summary>
-        /// Insert one element async
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="document"></param>
-        /// <param name="callback"></param>
         public async void Insert<T>(string collection, T document, Action<bool> callback)
         {
             try
@@ -63,39 +50,17 @@ namespace Zoo.Web
             return (db.GetCollection<T>("rpg_users").Find<T>(filter).ToList().Count > 0) ? true : false;
         }
 
-        /// <summary>
-        /// Select by FilterDefinition
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="filter"></param>
-        /// <returns></returns>
         public T Select<T>(string collection, FilterDefinition<T> filter)
         {
             return db.GetCollection<T>(collection).Find(filter).First();
         }
 
-        /// <summary>
-        /// Select by field and value
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="field"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
         public T Select<T>(string collection, string field, string value)
         {
             FilterDefinition<T> filter = Builders<T>.Filter.Eq(field, value);
             return db.GetCollection<T>(collection).Find(filter).First();
         }
 
-        /// <summary>
-        /// Select by FilterDefinition async
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="filter"></param>
-        /// <param name="action"></param>
         public async void Select<T>(string collection, FilterDefinition<T> filter, Action<bool, T> callback)
         {
             try
@@ -126,12 +91,6 @@ namespace Zoo.Web
 
         }
 
-        /// <summary>
-        /// Select All elements by collection, NOTE:This function use async
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="callback"></param>
         public async void SelectAll<T>(string collection, Action<bool, List<T>> callback)
         {
             try
@@ -185,13 +144,6 @@ namespace Zoo.Web
             }
         }
 
-        /// <summary>
-        /// Update one element
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="id"></param>
-        /// <param name="update"></param>
         public void Update<T>(string collection, ObjectId id, UpdateDefinition<T> update)
         {
             // Update
@@ -199,14 +151,6 @@ namespace Zoo.Web
             db.GetCollection<T>(collection).UpdateOne(filter, update);
         }
 
-        /// <summary>
-        /// Update one element async
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="id"></param>
-        /// <param name="update"></param>
-        /// <param name="callback"></param>
         public async void AsyncUpdate<T>(string collection, ObjectId id, UpdateDefinition<T> update, Action<bool> callback)
         {
             // Update
@@ -223,12 +167,6 @@ namespace Zoo.Web
             
         }
 
-        /// <summary>
-        /// Delete one element
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="id"></param>
         public void Delete<T>(string collection, ObjectId id)
         {
             // Delete
@@ -236,12 +174,6 @@ namespace Zoo.Web
             db.GetCollection<T>(collection).DeleteOne(filter);
         }
 
-        /// <summary>
-        /// Delete one element async
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="collection"></param>
-        /// <param name="id"></param>
         public async void AsyncDelete<T>(string collection, ObjectId id, Action<bool> callback)
         {
             // Delete
@@ -257,9 +189,6 @@ namespace Zoo.Web
             }
         }
 
-        /// <summary>
-        /// Dispose Mongo Client
-        /// </summary>
         public void Shutdown()
         {
             if (client != null)
